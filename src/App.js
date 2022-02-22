@@ -1,8 +1,9 @@
-import React, { createRef, useRef } from "react";
+import React, { createRef, useState } from "react";
 import QRcode from "qrcode";
 
 import logo from "./logo.svg";
 import "./App.css";
+import QrCodeComponent from "./QrCodeComponent";
 
 // make sure you do install https://www.npmjs.com/package/qrcode
 // npm i qrcode
@@ -10,13 +11,27 @@ import "./App.css";
 
 function App() {
   const qrDivRef = createRef(null);
+  const [qrCodeString, setQrCodeString] = useState();
+
+  function makeid(length) {
+    var result = "";
+    var characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var charactersLength = characters.length;
+    for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
 
   return (
     <div>
-      <button onClick={() => {
-        QRcode.toCanvas(qrDivRef.current, "some text that we want to make qr off")
-      }}>Generate QR code</button>
-      <canvas ref={qrDivRef} id="qr-div"></canvas>
+      <input
+        onChange={(event) => {
+          setQrCodeString(event?.target?.value);
+        }}
+      />
+      <QrCodeComponent content={qrCodeString} />
     </div>
   );
 }
