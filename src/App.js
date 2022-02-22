@@ -4,6 +4,10 @@ import QRcode from "qrcode";
 import logo from "./logo.svg";
 import "./App.css";
 
+// make sure you do install https://www.npmjs.com/package/qrcode
+// npm i qrcode
+// yarn add qrcode
+
 function App() {
   const qrDivRef = createRef(null);
 
